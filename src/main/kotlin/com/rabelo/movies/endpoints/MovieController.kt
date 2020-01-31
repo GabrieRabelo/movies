@@ -1,4 +1,4 @@
-package com.rabelo.movies.controller
+package com.rabelo.movies.endpoints
 
 import com.rabelo.movies.exception.NotFoundException
 import com.rabelo.movies.model.Movie
