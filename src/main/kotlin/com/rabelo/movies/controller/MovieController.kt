@@ -1,5 +1,6 @@
 package com.rabelo.movies.controller
 
+import com.rabelo.movies.exception.NotFoundException
 import com.rabelo.movies.model.Movie
 import com.rabelo.movies.repository.MovieRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -37,6 +38,7 @@ class MovieEndpoint @Autowired constructor(private val repository: MovieReposito
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     fun delete(@PathVariable id: String): Mono<Void> {
         return repository.findById(id)
+                .switchIfEmpty(Mono.error(NotFoundException))
                 .flatMap { movie -> repository.delete(movie) }
                 .then(Mono.empty())
     }
