@@ -28,4 +28,9 @@ class MovieEndpoint @Autowired constructor(private val repository: MovieReposito
                 .delayElements(Duration.ofSeconds(3))
     }
 
+    @PutMapping
+    fun put(@RequestBody movie: Movie): Mono<Movie> {
+        return repository.save(movie)
+    }
+
 }
