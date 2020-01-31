@@ -33,4 +33,11 @@ class MovieEndpoint @Autowired constructor(private val repository: MovieReposito
         return repository.save(movie)
     }
 
+    @DeleteMapping(value = ["/{id}"])
+    @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    fun delete(@PathVariable id: String): Mono<Void> {
+        return repository.findById(id)
+                .flatMap { movie -> repository.delete(movie) }
+                .then(Mono.empty())
+    }
 }
